@@ -2,7 +2,7 @@
 
 - RUN `composer install`
 
-- RUN `cp .env.example .env` _(Then setup ur .env file)_ 
+- RUN `cp .env.example .env` 
 or duplicate the `.env.example` file and name the duplicated one `.env`
 
     - Set up DB connection in .env
