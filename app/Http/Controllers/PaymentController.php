@@ -78,20 +78,20 @@ class PaymentController extends Controller
 
         $res = $this->paystackService->recurrentCharge([
 
-            'amount' => $request->amount,
+            'amount' => intval($request->amount) * 100,
             'email' => $user->email,
             'authorization_code' => $userCard->authorization_code
         ]);
 
         if($res['status'] == true && strtolower($res['data']['status']) == 'success'){
 
-            User::topUpWalletBalance($user->wallet_balance + $res['data']['amount']);
+            User::topUpWalletBalance($user->wallet_balance + ($res['data']['amount'] / 100));
 
         }
 
         return response()->json([
 
-            'history' => $this->logWalletHistory($res['data'], $res['data']['amount'], $user->id)
+            'history' => $this->logWalletHistory($res['data'], ($res['data']['amount'] / 100), $user->id)
 
         ]);
 
